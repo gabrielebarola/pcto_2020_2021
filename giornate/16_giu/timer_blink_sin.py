@@ -15,8 +15,8 @@ def change_pwm(t):
 	global dt
 	global angle
 	
-	angle += 1
-	if angle == 361: # per non aumentare eccessivamente la variabile
+	angle += 0.1
+	if angle > 360: # per non aumentare eccessivamente la variabile
 		angle = 0
 		
 	dt = int((sin(angle) + 1) * 511) #non 512 perchè porterebbe al valore 1024 non ammesso dal pwm
@@ -26,5 +26,5 @@ def change_pwm(t):
 		
 timer = Timer(1) 
 
-timer.init(period=100, mode=Timer.PERIODIC, callback=change_pwm)
+timer.init(period=50, mode=Timer.PERIODIC, callback=change_pwm)
 
