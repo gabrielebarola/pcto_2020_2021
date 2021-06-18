@@ -2,4 +2,4 @@
 
 ---
 
-- Prova sviluppo libreria per lcd (non funzionante al momento)
+- Prova sviluppo libreria per lcd (funziona init ma no caratteri)
