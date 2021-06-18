@@ -2,4 +2,5 @@
 
 ---
 
+- Implementazione timer in libreria utelegram (https://github.com/gabrielebarola/telegram-upy)
 
