@@ -1,14 +1,13 @@
 from machine import Pin, ADC
+import time
 from utelegram import Bot, Conversation
 
-TOKEN = ''
+TOKEN = '1706490752:AAH-v4l4r-NmN2sfXOsO0bz_zOwWn1P7IQc'
 
 sensor = ADC(Pin(32))
 
 bot = Bot(TOKEN)
 c = Conversation(['UPPER', 'LOWER'])
-user = None
-sent = False #per non notificare più volte lo stesso evento
 
 min_temp = -10000 #default molto alti per evitare le notifiche
 max_temp = 10000
@@ -33,21 +32,28 @@ def lower(update):
     user = update.message['chat']['id']
     update.reply('soglia inferiore impostata a *{}* celsius\.'.format(min_temp))
     return c.END
-
+    
+def main():
+    user = None
+    sent = False #per non notificare più volte lo stesso evento
+    while True:
+        temp = ((1/4095)*sensor.read())*100 #maximum value 100 celsius with 1 volt
+        print(temp)
+        if temp > max_temp:
+    	    print('superato')
+    	    if not sent:
+    	        sent = True
+    	        bot.send_message(user, 'Soglia superiore superata')
+        elif temp < min_temp:
+    	    if not sent:
+    	        sent = True
+    	        bot.send_message(user, 'Soglia inferiore superata')
+        else:
+    	    sent = False
+    	time.sleep_ms(50)
+    	    
+    	    
 bot.add_conversation_handler(c)
 
-while True:
-    bot.read()
-    temp = ((1/4095)*sensor.read())*100 #maximum value 100 celsius with 1 volt
-    print(temp)
-    if temp > max_temp:
-    	print('superato')
-    	if not sent:
-    	    sent = True
-    	    bot.send_message(user, 'Soglia superiore superata')
-    elif temp < min_temp:
-    	if not sent:
-    	    sent = True
-    	    bot.send_message(user, 'Soglia inferiore superata')
-    else:
-    	sent = False
+bot.start_loop(main)
+
