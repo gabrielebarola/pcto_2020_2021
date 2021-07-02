@@ -1,7 +1,7 @@
 from utelegram import Bot, Conversation, ReplyKeyboardMarkup, KeyboardButton
 from servo import Servo
 
-TOKEN = '1706490752:AAH-v4l4r-NmN2sfXOsO0bz_zOwWn1P7IQc'
+TOKEN = ''
 
 Base = Servo(12)
 Servo1 = Servo(14)
