@@ -2,7 +2,7 @@ from machine import Pin, ADC
 import time
 from utelegram import Bot, Conversation
 
-TOKEN = '1706490752:AAH-v4l4r-NmN2sfXOsO0bz_zOwWn1P7IQc'
+TOKEN = ''
 
 sensor = ADC(Pin(32))
 
